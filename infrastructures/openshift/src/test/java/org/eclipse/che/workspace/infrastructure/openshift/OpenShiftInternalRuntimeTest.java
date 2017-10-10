@@ -130,13 +130,13 @@ public class OpenShiftInternalRuntimeTest {
     MockitoAnnotations.initMocks(this);
     internalRuntime =
         new OpenShiftInternalRuntime(
-            context,
-            project,
+            13,
             new URLRewriter.NoOpURLRewriter(),
             eventService,
             bootstrapperFactory,
             serverCheckerFactory,
-            13);
+            context,
+            project);
     when(context.getOpenShiftEnvironment()).thenReturn(osEnv);
     when(context.getIdentity()).thenReturn(IDENTITY);
     doNothing().when(project).cleanUp();

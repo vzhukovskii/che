@@ -14,13 +14,12 @@ import io.fabric8.kubernetes.api.model.Container;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.eclipse.che.api.core.model.workspace.runtime.RuntimeIdentity;
-import org.eclipse.che.api.workspace.server.spi.InternalMachineConfig;
 import org.eclipse.che.commons.env.EnvironmentContext;
 import org.eclipse.che.multiuser.machine.authentication.server.MachineTokenRegistry;
 import org.eclipse.che.workspace.infrastructure.openshift.environment.OpenShiftEnvironment;
 
 /**
- * //TODO Fix java doc
+ * Performs provision of needed installer configs into OpenShift container.
  *
  * @author Sergii Leshchenko
  */
@@ -37,13 +36,8 @@ public class MultiuserInstallerConfigProvisioner extends InstallerConfigProvisio
 
   @Override
   protected void doProvisionContainer(
-      OpenShiftEnvironment osEnv,
-      Container container,
-      RuntimeIdentity identity,
-      String machineName,
-      InternalMachineConfig machineConf) {
-    super.doProvisionContainer(osEnv, container, identity, machineName, machineConf);
-
+      OpenShiftEnvironment osEnv, RuntimeIdentity identity, Container container) {
+    super.doProvisionContainer(osEnv, identity, container);
     String currentUserId = EnvironmentContext.getCurrent().getSubject().getUserId();
     String machineToken = tokenRegistry.generateToken(currentUserId, identity.getWorkspaceId());
     putEnv(container.getEnv(), "USER_TOKEN", machineToken);

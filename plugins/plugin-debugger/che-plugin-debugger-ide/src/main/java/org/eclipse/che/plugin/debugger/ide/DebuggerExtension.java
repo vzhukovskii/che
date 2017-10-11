@@ -25,18 +25,7 @@ import org.eclipse.che.ide.api.keybinding.KeyBindingAgent;
 import org.eclipse.che.ide.api.keybinding.KeyBuilder;
 import org.eclipse.che.ide.util.browser.UserAgent;
 import org.eclipse.che.ide.util.input.KeyCodeMap;
-import org.eclipse.che.plugin.debugger.ide.actions.ChangeVariableValueAction;
-import org.eclipse.che.plugin.debugger.ide.actions.DebugAction;
-import org.eclipse.che.plugin.debugger.ide.actions.DeleteAllBreakpointsAction;
-import org.eclipse.che.plugin.debugger.ide.actions.DisconnectDebuggerAction;
-import org.eclipse.che.plugin.debugger.ide.actions.EditConfigurationsAction;
-import org.eclipse.che.plugin.debugger.ide.actions.EvaluateExpressionAction;
-import org.eclipse.che.plugin.debugger.ide.actions.ResumeExecutionAction;
-import org.eclipse.che.plugin.debugger.ide.actions.ShowHideDebuggerPanelAction;
-import org.eclipse.che.plugin.debugger.ide.actions.StepIntoAction;
-import org.eclipse.che.plugin.debugger.ide.actions.StepOutAction;
-import org.eclipse.che.plugin.debugger.ide.actions.StepOverAction;
-import org.eclipse.che.plugin.debugger.ide.actions.SuspendAction;
+import org.eclipse.che.plugin.debugger.ide.actions.*;
 import org.eclipse.che.plugin.debugger.ide.configuration.DebugConfigurationsGroup;
 import org.eclipse.che.plugin.debugger.ide.debug.DebuggerPresenter;
 
@@ -75,6 +64,7 @@ public class DebuggerExtension {
       StepIntoAction stepIntoAction,
       StepOverAction stepOverAction,
       StepOutAction stepOutAction,
+      JumpIntoAction jumpIntoAction,
       ResumeExecutionAction resumeExecutionAction,
       SuspendAction suspendAction,
       EvaluateExpressionAction evaluateExpressionAction,
@@ -96,6 +86,7 @@ public class DebuggerExtension {
     actionManager.registerAction(STEP_INTO_ID, stepIntoAction);
     actionManager.registerAction(STEP_OVER_ID, stepOverAction);
     actionManager.registerAction(STEP_OUT_ID, stepOutAction);
+    actionManager.registerAction("jumpInto", jumpIntoAction);
     actionManager.registerAction(RESUME_EXECUTION_ID, resumeExecutionAction);
     actionManager.registerAction(SUSPEND_EXECUTION_ID, suspendAction);
     actionManager.registerAction(EVALUATE_EXPRESSION_ID, evaluateExpressionAction);
@@ -118,6 +109,7 @@ public class DebuggerExtension {
     runMenu.add(stepIntoAction, LAST);
     runMenu.add(stepOverAction, LAST);
     runMenu.add(stepOutAction, LAST);
+    runMenu.add(jumpIntoAction, LAST);
     runMenu.add(resumeExecutionAction, LAST);
     runMenu.add(suspendAction, new Constraints(Anchor.BEFORE, RESUME_EXECUTION_ID));
     runMenu.addSeparator();

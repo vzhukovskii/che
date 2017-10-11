@@ -33,4 +33,10 @@ public interface BreakpointDto extends Breakpoint {
   void setCondition(String condition);
 
   BreakpointDto withCondition(String condition);
+
+  int getHitCount();
+
+  void setHitCount(int hitCount);
+
+  BreakpointDto withHitCount(int hitCount);
 }

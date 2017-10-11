@@ -18,6 +18,7 @@ public interface Action {
     STEP_INTO,
     STEP_OUT,
     STEP_OVER,
+    JUMP_TO_CURSOR,
     START,
     RESUME,
     SUSPEND

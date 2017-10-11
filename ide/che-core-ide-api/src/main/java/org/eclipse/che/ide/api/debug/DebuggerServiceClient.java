@@ -19,12 +19,7 @@ import org.eclipse.che.api.debug.shared.dto.SimpleValueDto;
 import org.eclipse.che.api.debug.shared.dto.StackFrameDumpDto;
 import org.eclipse.che.api.debug.shared.dto.ThreadStateDto;
 import org.eclipse.che.api.debug.shared.dto.VariableDto;
-import org.eclipse.che.api.debug.shared.dto.action.ResumeActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StartActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepIntoActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOutActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOverActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.SuspendActionDto;
+import org.eclipse.che.api.debug.shared.dto.action.*;
 import org.eclipse.che.api.debug.shared.model.ThreadState;
 import org.eclipse.che.api.promises.client.Promise;
 
@@ -163,6 +158,8 @@ public interface DebuggerServiceClient {
    * @param action the step over action parameters
    */
   Promise<Void> stepOver(String id, StepOverActionDto action);
+
+  Promise<Void> jumpInto(String id, JumpIntoActionDto action);
 
   /**
    * Does step out.

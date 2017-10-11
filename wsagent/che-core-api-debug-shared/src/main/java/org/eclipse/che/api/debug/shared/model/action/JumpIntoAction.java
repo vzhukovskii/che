@@ -8,18 +8,11 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.api.debug.shared.model;
+package org.eclipse.che.api.debug.shared.model.action;
 
-/** @author Anatoliy Bazko */
-public interface Breakpoint {
-  /** The location of the breakpoint. */
-  Location getLocation();
+import org.eclipse.che.api.debug.shared.dto.BreakpointDto;
+import org.eclipse.che.api.debug.shared.dto.LocationDto;
 
-  /** Indicates if it is enabled or not. */
-  boolean isEnabled();
-
-  /** The condition. */
-  String getCondition();
-
-  int getHitCount();
+public interface JumpIntoAction extends Action{
+  LocationDto getLocation();
 }

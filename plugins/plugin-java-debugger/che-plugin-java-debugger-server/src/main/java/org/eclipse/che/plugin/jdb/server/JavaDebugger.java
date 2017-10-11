@@ -47,6 +47,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.eclipse.che.api.debug.shared.dto.BreakpointDto;
+import org.eclipse.che.api.debug.shared.dto.LocationDto;
 import org.eclipse.che.api.debug.shared.dto.action.ResumeActionDto;
 import org.eclipse.che.api.debug.shared.model.Breakpoint;
 import org.eclipse.che.api.debug.shared.model.DebuggerInfo;
@@ -57,11 +58,7 @@ import org.eclipse.che.api.debug.shared.model.ThreadState;
 import org.eclipse.che.api.debug.shared.model.ThreadStatus;
 import org.eclipse.che.api.debug.shared.model.Variable;
 import org.eclipse.che.api.debug.shared.model.VariablePath;
-import org.eclipse.che.api.debug.shared.model.action.ResumeAction;
-import org.eclipse.che.api.debug.shared.model.action.StartAction;
-import org.eclipse.che.api.debug.shared.model.action.StepIntoAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOutAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOverAction;
+import org.eclipse.che.api.debug.shared.model.action.*;
 import org.eclipse.che.api.debug.shared.model.impl.BreakpointImpl;
 import org.eclipse.che.api.debug.shared.model.impl.DebuggerInfoImpl;
 import org.eclipse.che.api.debug.shared.model.impl.ThreadStateImpl;
@@ -203,6 +200,23 @@ public class JavaDebugger implements EventsHandler, Debugger {
   }
 
   @Override
+  public void jumpTo(JumpIntoAction action) throws DebuggerException {
+    lock.lock();
+    try {
+      BreakpointDto breakpoint =
+          newDto(BreakpointDto.class).withLocation(action.getLocation()).withHitCount(1);
+      addBreakpoint(breakpoint);
+      invalidateCurrentThread();
+      vm.resume();
+      LOG.debug("Resume VM");
+    } catch (VMCannotBeModifiedException e) {
+      throw new DebuggerException(e.getMessage(), e);
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  @Override
   public void disconnect() throws DebuggerException {
     vm.dispose();
     LOG.debug("Close connection to {}:{}", host, port);
@@ -256,6 +270,7 @@ public class JavaDebugger implements EventsHandler, Debugger {
             "org.eclipse.che.ide.java.debug.condition.expression.parser", parser);
       }
       breakPointRequest.setEnabled(true);
+      breakPointRequest.addCountFilter(breakpoint.getHitCount());
     } catch (NativeMethodException | IllegalThreadStateException | InvalidRequestStateException e) {
       throw new DebuggerException(e.getMessage(), e);
     }

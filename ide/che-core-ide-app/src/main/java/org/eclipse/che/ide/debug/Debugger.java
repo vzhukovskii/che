@@ -77,6 +77,8 @@ public interface Debugger extends DebuggerObservable {
   /** Does step over. */
   void stepOver();
 
+  void jumpInto(int lineNumber, String source);
+
   /** Does step out. */
   void stepOut();
 

@@ -20,11 +20,7 @@ import org.eclipse.che.api.debug.shared.model.StackFrameDump;
 import org.eclipse.che.api.debug.shared.model.ThreadState;
 import org.eclipse.che.api.debug.shared.model.Variable;
 import org.eclipse.che.api.debug.shared.model.VariablePath;
-import org.eclipse.che.api.debug.shared.model.action.ResumeAction;
-import org.eclipse.che.api.debug.shared.model.action.StartAction;
-import org.eclipse.che.api.debug.shared.model.action.StepIntoAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOutAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOverAction;
+import org.eclipse.che.api.debug.shared.model.action.*;
 import org.eclipse.che.api.debug.shared.model.event.BreakpointActivatedEvent;
 import org.eclipse.che.api.debug.shared.model.event.DebuggerEvent;
 import org.eclipse.che.api.debug.shared.model.event.DisconnectEvent;
@@ -204,6 +200,8 @@ public interface Debugger {
    * @throws DebuggerException if any error occur
    */
   void stepOut(StepOutAction action) throws DebuggerException;
+
+  void jumpTo(JumpIntoAction action) throws DebuggerException;
 
   /**
    * Resume application is being debugged. When process stops then {@link SuspendEvent} must be

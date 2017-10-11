@@ -22,11 +22,7 @@ import org.eclipse.che.api.debug.shared.model.SimpleValue;
 import org.eclipse.che.api.debug.shared.model.StackFrameDump;
 import org.eclipse.che.api.debug.shared.model.Variable;
 import org.eclipse.che.api.debug.shared.model.VariablePath;
-import org.eclipse.che.api.debug.shared.model.action.ResumeAction;
-import org.eclipse.che.api.debug.shared.model.action.StartAction;
-import org.eclipse.che.api.debug.shared.model.action.StepIntoAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOutAction;
-import org.eclipse.che.api.debug.shared.model.action.StepOverAction;
+import org.eclipse.che.api.debug.shared.model.action.*;
 import org.eclipse.che.api.debug.shared.model.impl.DebuggerInfoImpl;
 import org.eclipse.che.api.debug.shared.model.impl.SimpleValueImpl;
 import org.eclipse.che.api.debug.shared.model.impl.StackFrameDumpImpl;
@@ -210,6 +206,11 @@ public class NodeJsDebugger implements Debugger, NodeJsProcessObserver {
     } catch (NodeJsDebuggerException e) {
       throw new DebuggerException("Step out error. " + e.getMessage(), e);
     }
+  }
+
+  @Override
+  public void jumpTo(JumpIntoAction action) throws DebuggerException {
+
   }
 
   @Override

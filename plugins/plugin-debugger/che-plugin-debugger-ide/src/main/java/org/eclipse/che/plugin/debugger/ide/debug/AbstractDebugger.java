@@ -30,12 +30,7 @@ import org.eclipse.che.api.debug.shared.dto.SimpleValueDto;
 import org.eclipse.che.api.debug.shared.dto.ThreadStateDto;
 import org.eclipse.che.api.debug.shared.dto.VariableDto;
 import org.eclipse.che.api.debug.shared.dto.VariablePathDto;
-import org.eclipse.che.api.debug.shared.dto.action.ResumeActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StartActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepIntoActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOutActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOverActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.SuspendActionDto;
+import org.eclipse.che.api.debug.shared.dto.action.*;
 import org.eclipse.che.api.debug.shared.dto.event.BreakpointActivatedEventDto;
 import org.eclipse.che.api.debug.shared.dto.event.DebuggerEventDto;
 import org.eclipse.che.api.debug.shared.dto.event.DisconnectEventDto;
@@ -72,6 +67,7 @@ import org.eclipse.che.ide.dto.DtoFactory;
 import org.eclipse.che.ide.util.loging.Log;
 import org.eclipse.che.ide.util.storage.LocalStorage;
 import org.eclipse.che.ide.util.storage.LocalStorageProvider;
+import org.eclipse.che.plugin.debugger.ide.actions.JumpIntoAction;
 
 /**
  * The common debugger.
@@ -574,6 +570,14 @@ public abstract class AbstractDebugger implements Debugger, DebuggerObservable {
             Log.error(AbstractDebugger.class, error.getCause());
           });
     }
+  }
+
+  @Override
+  public void jumpInto(int lineNumber, String source) {
+      JumpIntoActionDto dto = dtoFactory.createDto(JumpIntoActionDto.class);
+      dto.setType(Action.TYPE.JUMP_TO_CURSOR);
+      dto.setLocation(dtoFactory.createDto(LocationDto.class).withLineNumber(lineNumber).withTarget(source));
+      service.jumpInto(debugSessionDto.getId(), dto);
   }
 
   @Override

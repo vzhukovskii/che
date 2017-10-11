@@ -27,13 +27,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
-import org.eclipse.che.api.debug.shared.dto.action.ActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.ResumeActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StartActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepIntoActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOutActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.StepOverActionDto;
-import org.eclipse.che.api.debug.shared.dto.action.SuspendActionDto;
+
+import org.eclipse.che.api.debug.shared.dto.action.*;
 import org.eclipse.che.api.debug.shared.model.action.Action;
 import org.eclipse.che.dto.server.DtoFactory;
 import org.eclipse.che.dto.shared.DTO;
@@ -79,6 +74,8 @@ public class DebuggerActionProvider implements MessageBodyReader<ActionDto> {
     switch (actionType) {
       case RESUME:
         return DtoFactory.getInstance().createDtoFromJson(json, ResumeActionDto.class);
+      case JUMP_TO_CURSOR:
+        return DtoFactory.getInstance().createDtoFromJson(json, JumpIntoActionDto.class);
       case START:
         return DtoFactory.getInstance().createDtoFromJson(json, StartActionDto.class);
       case STEP_INTO:

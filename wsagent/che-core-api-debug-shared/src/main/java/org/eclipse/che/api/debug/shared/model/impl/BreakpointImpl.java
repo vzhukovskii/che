@@ -45,6 +45,11 @@ public class BreakpointImpl implements Breakpoint {
   }
 
   @Override
+  public int getHitCount() {
+    return 0;
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof BreakpointImpl)) return false;

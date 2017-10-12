@@ -10,7 +10,6 @@
  */
 package org.eclipse.che.selenium.core.entrance;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.user.TestUser;
@@ -24,19 +23,13 @@ import org.openqa.selenium.Cookie;
 @Singleton
 public class CookieEntrance implements Entrance {
 
-  private final SeleniumWebDriver seleniumWebDriver;
-
-  @Inject
-  public CookieEntrance(SeleniumWebDriver seleniumWebDriver) {
-    this.seleniumWebDriver = seleniumWebDriver;
-  }
-
   /**
    * Login to product by using cookies.
    *
    * @param user
+   * @param seleniumWebDriver
    */
-  public void login(TestUser user) {
+  public void login(TestUser user, SeleniumWebDriver seleniumWebDriver) {
     Cookie accessKey = new Cookie("session-access-key", user.getAuthToken());
     seleniumWebDriver.manage().addCookie(accessKey);
   }

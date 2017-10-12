@@ -47,7 +47,7 @@ public class Ide {
   public void open(TestWorkspace testWorkspace) throws Exception {
     URL workspaceUrl = testWorkspaceUrlResolver.resolve(testWorkspace);
     seleniumWebDriver.get(workspaceUrl.toString());
-    entrance.login(testWorkspace.getOwner());
+    entrance.login(testWorkspace.getOwner(), seleniumWebDriver);
   }
 
   @PreDestroy

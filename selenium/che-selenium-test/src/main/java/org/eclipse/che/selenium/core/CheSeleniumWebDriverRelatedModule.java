@@ -42,7 +42,7 @@ public class CheSeleniumWebDriverRelatedModule extends AbstractModule {
     if (isMultiuser) {
       return new LoginPageEntrance(loginPage);
     } else {
-      return new CookieEntrance(seleniumWebDriver);
+      return new CookieEntrance();
     }
   }
 }

@@ -50,7 +50,7 @@ public class TestFactory {
   public void authenticateAndOpen(SeleniumWebDriver driver) throws Exception {
     driver.get(dashboardUrl.get().toString());
 
-    entrance.login(owner);
+    entrance.login(owner, driver);
 
     driver.get(factoryUrl);
   }

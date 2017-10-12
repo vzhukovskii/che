@@ -10,6 +10,8 @@
  */
 package org.eclipse.che.selenium.pageobject.site;
 
+import org.eclipse.che.selenium.core.SeleniumWebDriver;
+
 /** @author Dmytro Nochevnov */
 public interface LoginPage {
 
@@ -18,8 +20,9 @@ public interface LoginPage {
    *
    * @param username login username
    * @param password login password
+   * @param seleniumWebDriver
    */
-  void login(String username, String password);
+  void login(String username, String password, SeleniumWebDriver seleniumWebDriver);
 
-  boolean isOpened();
+  boolean isOpened(SeleniumWebDriver seleniumWebDriver);
 }

@@ -21,7 +21,6 @@ import com.google.inject.Singleton;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.entrance.Entrance;
 import org.eclipse.che.selenium.core.provider.TestDashboardUrlProvider;
-import org.eclipse.che.selenium.core.provider.TestIdeUrlProvider;
 import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.site.LoginPage;
 import org.openqa.selenium.WebElement;
@@ -42,17 +41,10 @@ public class CheMultiuserAdminDashboard extends Dashboard {
   public CheMultiuserAdminDashboard(
       SeleniumWebDriver seleniumWebDriver,
       TestUser defaultUser,
-      TestIdeUrlProvider testIdeUrlProvider,
       TestDashboardUrlProvider testDashboardUrlProvider,
       Entrance entrance,
       LoginPage loginPage) {
-    super(
-        seleniumWebDriver,
-        defaultUser,
-        testIdeUrlProvider,
-        testDashboardUrlProvider,
-        entrance,
-        loginPage);
+    super(seleniumWebDriver, defaultUser, testDashboardUrlProvider, entrance, loginPage);
     PageFactory.initElements(seleniumWebDriver, this);
   }
 

@@ -10,6 +10,7 @@
  */
 package org.eclipse.che.selenium.core.entrance;
 
+import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.user.TestUser;
 
 /** @author Dmytro Nochevnov */
@@ -18,6 +19,7 @@ public interface Entrance {
    * Login to product.
    *
    * @param user user to login
+   * @param seleniumWebDriver
    */
-  void login(TestUser user);
+  void login(TestUser user, SeleniumWebDriver seleniumWebDriver);
 }

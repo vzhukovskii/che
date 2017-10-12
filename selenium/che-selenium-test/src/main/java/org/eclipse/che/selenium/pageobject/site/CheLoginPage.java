@@ -11,7 +11,6 @@
 package org.eclipse.che.selenium.pageobject.site;
 
 import com.google.common.collect.ImmutableList;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.constant.TestTimeoutsConstants;
@@ -26,9 +25,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @Singleton
 public class CheLoginPage implements LoginPage {
 
-  private final SeleniumWebDriver seleniumWebDriver;
-  private final WebDriverWait webDriverWait;
-
   @FindBy(name = "username")
   private WebElement usernameInput;
 
@@ -38,37 +34,30 @@ public class CheLoginPage implements LoginPage {
   @FindBy(name = "login")
   private WebElement loginButton;
 
-  @Inject
-  public CheLoginPage(SeleniumWebDriver seleniumWebDriver) {
-    this.seleniumWebDriver = seleniumWebDriver;
+  public void login(String username, String password, SeleniumWebDriver seleniumWebDriver) {
     PageFactory.initElements(seleniumWebDriver, this);
-
-    webDriverWait =
-        new WebDriverWait(seleniumWebDriver, TestTimeoutsConstants.REDRAW_UI_ELEMENTS_TIMEOUT_SEC);
-  }
-
-  public void login(String username, String password) {
-    waitOnOpen();
+    waitOnOpen(seleniumWebDriver);
     usernameInput.clear();
     usernameInput.sendKeys(username);
     passwordInput.clear();
     passwordInput.sendKeys(password);
     loginButton.click();
-    waitOnClose();
+    waitOnClose(seleniumWebDriver);
   }
 
-  public void waitOnOpen() {
-    webDriverWait.until(ExpectedConditions.visibilityOf(loginButton));
+  public void waitOnOpen(SeleniumWebDriver seleniumWebDriver) {
+    new WebDriverWait(seleniumWebDriver, TestTimeoutsConstants.REDRAW_UI_ELEMENTS_TIMEOUT_SEC)
+        .until(ExpectedConditions.visibilityOf(loginButton));
   }
 
-  public void waitOnClose() {
-    webDriverWait.until(
-        ExpectedConditions.invisibilityOfAllElements(ImmutableList.of(loginButton)));
+  public void waitOnClose(SeleniumWebDriver seleniumWebDriver) {
+    new WebDriverWait(seleniumWebDriver, TestTimeoutsConstants.REDRAW_UI_ELEMENTS_TIMEOUT_SEC)
+        .until(ExpectedConditions.invisibilityOfAllElements(ImmutableList.of(loginButton)));
   }
 
-  public boolean isOpened() {
+  public boolean isOpened(SeleniumWebDriver seleniumWebDriver) {
     try {
-      waitOnOpen();
+      waitOnOpen(seleniumWebDriver);
     } catch (TimeoutException e) {
       return false;
     }

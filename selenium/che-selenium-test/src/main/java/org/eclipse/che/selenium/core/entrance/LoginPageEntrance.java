@@ -12,6 +12,7 @@ package org.eclipse.che.selenium.core.entrance;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.pageobject.site.LoginPage;
 
@@ -34,10 +35,11 @@ public class LoginPageEntrance implements Entrance {
    * Login to product.
    *
    * @param user
+   * @param seleniumWebDriver
    */
-  public void login(TestUser user) {
-    if (loginPage.isOpened()) {
-      loginPage.login(user.getName(), user.getPassword());
+  public void login(TestUser user, SeleniumWebDriver seleniumWebDriver) {
+    if (loginPage.isOpened(seleniumWebDriver)) {
+      loginPage.login(user.getName(), user.getPassword(), seleniumWebDriver);
     }
   }
 }

@@ -26,7 +26,6 @@ import javax.annotation.PreDestroy;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.entrance.Entrance;
 import org.eclipse.che.selenium.core.provider.TestDashboardUrlProvider;
-import org.eclipse.che.selenium.core.provider.TestIdeUrlProvider;
 import org.eclipse.che.selenium.core.user.TestUser;
 import org.eclipse.che.selenium.core.utils.WaitUtils;
 import org.eclipse.che.selenium.pageobject.site.LoginPage;
@@ -44,7 +43,6 @@ public class Dashboard {
   protected final SeleniumWebDriver seleniumWebDriver;
   protected final TestUser defaultUser;
 
-  private final TestIdeUrlProvider testIdeUrlProvider;
   private final TestDashboardUrlProvider testDashboardUrlProvider;
   private final Entrance entrance;
   private final LoginPage loginPage;
@@ -53,13 +51,11 @@ public class Dashboard {
   public Dashboard(
       SeleniumWebDriver seleniumWebDriver,
       TestUser defaultUser,
-      TestIdeUrlProvider testIdeUrlProvider,
       TestDashboardUrlProvider testDashboardUrlProvider,
       Entrance entrance,
       LoginPage loginPage) {
     this.seleniumWebDriver = seleniumWebDriver;
     this.defaultUser = defaultUser;
-    this.testIdeUrlProvider = testIdeUrlProvider;
     this.testDashboardUrlProvider = testDashboardUrlProvider;
     this.entrance = entrance;
     this.loginPage = loginPage;
@@ -200,14 +196,14 @@ public class Dashboard {
   /** Open dashboard as default uses */
   public void open() {
     seleniumWebDriver.get(testDashboardUrlProvider.get().toString());
-    entrance.login(defaultUser);
+    entrance.login(defaultUser, seleniumWebDriver);
   }
 
   /** Open dashboard with provided username and password */
   public void open(String userName, String userPassword) {
     seleniumWebDriver.get(testDashboardUrlProvider.get().toString());
-    if (loginPage.isOpened()) {
-      loginPage.login(userName, userPassword);
+    if (loginPage.isOpened(seleniumWebDriver)) {
+      loginPage.login(userName, userPassword, seleniumWebDriver);
     }
   }
 

@@ -46,16 +46,19 @@ public class CheLoginPage implements LoginPage {
   }
 
   public void waitOnOpen(SeleniumWebDriver seleniumWebDriver) {
+    PageFactory.initElements(seleniumWebDriver, this);
     new WebDriverWait(seleniumWebDriver, TestTimeoutsConstants.REDRAW_UI_ELEMENTS_TIMEOUT_SEC)
         .until(ExpectedConditions.visibilityOf(loginButton));
   }
 
   public void waitOnClose(SeleniumWebDriver seleniumWebDriver) {
+    PageFactory.initElements(seleniumWebDriver, this);
     new WebDriverWait(seleniumWebDriver, TestTimeoutsConstants.REDRAW_UI_ELEMENTS_TIMEOUT_SEC)
         .until(ExpectedConditions.invisibilityOfAllElements(ImmutableList.of(loginButton)));
   }
 
   public boolean isOpened(SeleniumWebDriver seleniumWebDriver) {
+    PageFactory.initElements(seleniumWebDriver, this);
     try {
       waitOnOpen(seleniumWebDriver);
     } catch (TimeoutException e) {

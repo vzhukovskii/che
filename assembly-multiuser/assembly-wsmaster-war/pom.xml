@@ -128,10 +128,10 @@
                 <configuration>
                     <scanWarDependencies>true</scanWarDependencies>
                     <skipResources>
-                        <skipResource>.*/CheWsMasterModule.*</skipResource>
-                        <skipResource>.*CheWsMasterServletModule.*</skipResource>
-                        <skipResource>.*LocalModule.*</skipResource>
-                        <skipResource>.*LocalServletModule.*</skipResource>
+                        <skipResource>.*WEB-INF/classes/org/eclipse/che/api/deploy/CheWsMasterModule.class</skipResource>
+                        <skipResource>.*WEB-INF/classes/org/eclipse/che/api/deploy/CheWsMasterServletModule.*</skipResource>
+                        <skipResource>.*LocalModule.class</skipResource>
+                        <skipResource>.*LocalServletModule.class</skipResource>
                     </skipResources>
                 </configuration>
             </plugin>
